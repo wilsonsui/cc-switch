@@ -2037,7 +2037,9 @@
     "modelExtraFieldKeyPlaceholder": "variants",
     "sdkOptions": "SDK Seçenekleri",
     "modelOptionKeyPlaceholder": "provider",
-    "modelOptionValuePlaceholder": "{\"order\": [\"baseten\"]}"
+    "modelOptionValuePlaceholder": "{\"order\": [\"baseten\"]}",
+    "prefixModelNames": "Adlara ön ek ekle",
+    "prefixModelNamesAria": "Tüm görünen adların başına sağlayıcı adını ekler"
   },
   "providerPreset": {
     "label": "Sağlayıcı Ön Ayarı",

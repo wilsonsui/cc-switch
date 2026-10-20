@@ -2068,7 +2068,9 @@
     "modelExtraFieldKeyPlaceholder": "variants",
     "sdkOptions": "SDK 選項",
     "modelOptionKeyPlaceholder": "provider",
-    "modelOptionValuePlaceholder": "{\"order\": [\"baseten\"]}"
+    "modelOptionValuePlaceholder": "{\"order\": [\"baseten\"]}",
+    "prefixModelNames": "加上供應商前綴",
+    "prefixModelNamesAria": "將所有顯示名稱加上供應商名稱前綴"
   },
   "providerPreset": {
     "label": "預設供應商",

@@ -802,4 +802,60 @@ describe("OpenCodeFormFields", () => {
       },
     });
   });
+
+  it("prefixes all display names with the provider name", () => {
+    const onModelsChange = vi.fn();
+    renderOpenCodeForm({
+      providerName: "My Provider",
+      models: {
+        "glm-5.3": { name: "glm-5.3" },
+        "kimi-k2": { name: "Kimi K2" },
+      },
+      onModelsChange,
+    });
+
+    fireEvent.click(
+      screen.getByRole("button", {
+        name: "Prefix all display names with the provider name",
+      }),
+    );
+
+    expect(onModelsChange).toHaveBeenCalledWith({
+      "glm-5.3": { name: "My Provider_glm-5.3" },
+      "kimi-k2": { name: "My Provider_Kimi K2" },
+    });
+  });
+
+  it("skips display names that already start with the provider prefix", () => {
+    const onModelsChange = vi.fn();
+    renderOpenCodeForm({
+      providerName: "My Provider",
+      models: {
+        "glm-5.3": { name: "My Provider_glm-5.3" },
+        "kimi-k2": { name: "Kimi K2" },
+      },
+      onModelsChange,
+    });
+
+    fireEvent.click(
+      screen.getByRole("button", {
+        name: "Prefix all display names with the provider name",
+      }),
+    );
+
+    expect(onModelsChange).toHaveBeenCalledWith({
+      "glm-5.3": { name: "My Provider_glm-5.3" },
+      "kimi-k2": { name: "My Provider_Kimi K2" },
+    });
+  });
+
+  it("disables the prefix button when provider name is empty", () => {
+    renderOpenCodeForm({ providerName: "" });
+
+    expect(
+      screen.getByRole("button", {
+        name: "Prefix all display names with the provider name",
+      }),
+    ).toBeDisabled();
+  });
 });

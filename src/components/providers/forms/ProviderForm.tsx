@@ -2795,6 +2795,7 @@ function ProviderFormFull({
               onExtraOptionsChange={
                 opencodeForm.handleOpencodeExtraOptionsChange
               }
+              providerName={form.watch("name")}
             />
           )}
 

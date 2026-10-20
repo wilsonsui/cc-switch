@@ -2067,7 +2067,9 @@
     "modelExtraFieldKeyPlaceholder": "variants",
     "sdkOptions": "SDK オプション",
     "modelOptionKeyPlaceholder": "provider",
-    "modelOptionValuePlaceholder": "{\"order\": [\"baseten\"]}"
+    "modelOptionValuePlaceholder": "{\"order\": [\"baseten\"]}",
+    "prefixModelNames": "名前をプロバイダー名でプレフィックス",
+    "prefixModelNamesAria": "すべての表示名の先頭にプロバイダー名を付けます"
   },
   "providerPreset": {
     "label": "プロバイダータイプ",

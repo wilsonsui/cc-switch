@@ -292,6 +292,7 @@ export function McodeProviderForm({
               mergeOpencodeExtraOptionRows(options, draft);
               update({ ...config, options });
             }}
+            providerName={name}
           />
         </fieldset>
         <div className="space-y-2">

@@ -13,7 +13,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { toast } from "@/lib/toast";
-import { Plus, Trash2, ChevronRight } from "lucide-react";
+import { Plus, Trash2, ChevronRight, BadgePlus } from "lucide-react";
 import { ApiKeySection, GptContextWindowHint, ModelDropdown } from "./shared";
 import {
   fetchModelsForConfig,
@@ -200,6 +200,9 @@ interface OpenCodeFormFieldsProps {
   // Extra Options
   extraOptions: Record<string, string>;
   onExtraOptionsChange: (options: Record<string, string>) => void;
+
+  /** 供应商显示名称:用于把「供应商名-」前缀批量加到所有模型显示名称上。 */
+  providerName?: string;
 }
 
 export function OpenCodeFormFields({
@@ -223,6 +226,7 @@ export function OpenCodeFormFields({
   onModelsChange,
   extraOptions,
   onExtraOptionsChange,
+  providerName = "",
 }: OpenCodeFormFieldsProps) {
   const { t } = useTranslation();
 
@@ -599,6 +603,27 @@ export function OpenCodeFormFields({
     });
   };
 
+  // 把供应商名作为前缀批量加到所有模型的显示名称上。
+  // 显示名称已是「供应商名_」开头(不区分大小写)的跳过,避免重复叠加。
+  const handlePrefixModelNames = () => {
+    const prefix = providerName.trim();
+    if (!prefix) return;
+    const lower = prefix.toLowerCase();
+    const next: Record<string, OpenCodeModel> = {};
+    for (const [key, model] of Object.entries(models)) {
+      const name = model.name ?? "";
+      if (name.toLowerCase().startsWith(`${lower}_`)) {
+        next[key] = model;
+      } else {
+        next[key] = {
+          ...model,
+          name: [prefix, name].filter(Boolean).join("_"),
+        };
+      }
+    }
+    commitModels(next);
+  };
+
   return (
     <>
       {/* NPM Package Selector */}
@@ -772,6 +797,22 @@ export function OpenCodeFormFields({
               isFetching={isFetchingModels}
               metadataSource={{ baseUrl, presets: presetModelSources }}
             />
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={handlePrefixModelNames}
+              disabled={!providerName.trim() || Object.keys(models).length === 0}
+              className="h-7 gap-1"
+              aria-label={t("opencode.prefixModelNamesAria", {
+                defaultValue: "Prefix all display names with the provider name",
+              })}
+            >
+              <BadgePlus className="h-3.5 w-3.5" />
+              {t("opencode.prefixModelNames", {
+                defaultValue: "Prefix names",
+              })}
+            </Button>
             <Button
               type="button"
               variant="outline"

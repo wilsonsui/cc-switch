@@ -2067,7 +2067,9 @@
     "modelExtraFieldKeyPlaceholder": "variants",
     "sdkOptions": "SDK Options",
     "modelOptionKeyPlaceholder": "provider",
-    "modelOptionValuePlaceholder": "{\"order\": [\"baseten\"]}"
+    "modelOptionValuePlaceholder": "{\"order\": [\"baseten\"]}",
+    "prefixModelNames": "Prefix names",
+    "prefixModelNamesAria": "Prefix all display names with the provider name"
   },
   "providerPreset": {
     "label": "Provider Preset",
